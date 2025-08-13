@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <h1>Admin Panel</h1>
+    <h2>Add/Edit Books</h2>
+    <form action="{{ url_for('add_book') }}" method="post">
+        <input type="text" name="title" placeholder="Book Title" required>
+        <input type="number" name="price" placeholder="Price" step="0.01" required>
+        <button type="submit">Add Book</button>
+    </form>
+    {% for book in books %}
+        <div class="book">
+            <h3>{{ book.title }}</h3>
+            <p>Price: ${{ book.price }}</p>
+            <form action="{{ url_for('edit_book', book_id=book._id) }}" method="post">
+                <input type="text" name="title" value="{{ book.title }}" required>
+                <input type="number" name="price" value="{{ book.price }}" step="0.01" required>
+                <button type="submit">Update</button>
+            </form>
+        </div>
+    {% endfor %}
+    <h2>Manage Orders</h2>
+    {% for order in orders %}
+        <div class="order">
+            <p>Order ID: {{ order._id }}</p>
+            <p>Status: {{ order.status }}</p>
+        </div>
+    {% endfor %}
+    <h2>Sales</h2>
+    <p>Daily Sales: {{ daily_sales }}</p>
+    <p>Weekly Sales: {{ weekly_sales }}</p>
+    <a href="{{ url_for('index') }}">Back</a>
+</body>
+</html>

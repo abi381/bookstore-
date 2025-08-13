@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Browse Books</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <h1>Browse Books</h1>
+    {% for book in books %}
+        <div class="book">
+            <h3>{{ book.title }}</h3>
+            <p>Price: ${{ book.price }}</p>
+            <a href="{{ url_for('add_to_cart', book_id=book._id) }}">Add to Cart</a>
+        </div>
+    {% endfor %}
+    <a href="{{ url_for('index') }}">Back</a>
+</body>
+</html>
